@@ -9,10 +9,20 @@
 
 export interface ICountry {
   // Your solution goes here
+  code: string
+  name: string
+  capital: string
+  languages: ICountryLanguage[]
 }
 
-
 // ICountryOverview -> create a subset of ICountry
-export interface ICountryOverview {}
+export interface ICountryOverview {
+  name: string
+  code: string
+}
+
+export interface ICountryLanguage {
+  name: string
+}
 
 

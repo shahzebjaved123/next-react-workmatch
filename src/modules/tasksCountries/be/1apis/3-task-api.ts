@@ -15,13 +15,14 @@ import {ICountryOverview} from '../../sharedInterfaces/1-taks-interface'
 export const countriesApi = async (req: NextApiRequest, res: NextApiResponse<IResult<ICountryOverview[]>>) => {
   const {method} = req
 
-  // your solution goes here
-
-  const countries = []
+  const countries = getAllCountries()
+  const searchQuery = req.query['q'] as string || ''
+  
+  const filteredCountries = filterCountries(countries, searchQuery)
 
   switch (method) {
     case 'POST': {
-      return apiResponse(res, ApiResponseStatus.OK, countries, [])
+      return apiResponse(res, ApiResponseStatus.OK, filteredCountries, [])
     }
 
     default:

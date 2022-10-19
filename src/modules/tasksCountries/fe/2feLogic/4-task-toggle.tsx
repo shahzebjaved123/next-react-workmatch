@@ -7,12 +7,22 @@
 */
 
 import { Button, HorizontalLine, Paragraph } from "@styleGuide";
+import { useState } from "react";
+
 export const Toggle = () => {
+
+  const [showText, setShowText] = useState<boolean>(true) // can be used for global state, if needed. 
+
+  const handleClick = () => {
+    setShowText(!showText)
+    document.title = showText ? 'hidden' : 'shown'
+  }
+
   return (
     <div>
-      your button
+      <Button onClick={handleClick}>Toggle Button</Button>
       <HorizontalLine />
-      show and hide
+      {showText && 'show and hide'}
     </div>
   )
 }

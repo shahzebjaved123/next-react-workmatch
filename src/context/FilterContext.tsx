@@ -1,10 +1,17 @@
 import React, {ReactNode, useContext, useState} from 'react'
 import {noop} from '@utils'
+import { ICountryOverview } from 'src/modules/tasksCountries/sharedInterfaces/1-taks-interface'
 
 
 export interface IFilter {
   locale: IStringFilter
   search: IStringFilter
+  filteredCountries: IArrayFilter<ICountryOverview>
+}
+
+interface IArrayFilter<T> {
+  set: (value: T[]) => void
+  value: T[] | undefined
 }
 
 interface IStringFilter {
@@ -30,6 +37,7 @@ export const useFilterContext = () => {
 
 export const FilterContextProvider = ({children}: IFilterContextProvider) => {
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined)
+  const [countries, setCountries] = useState<ICountryOverview[]>()
 
   const value: IFilter = {
     locale: {
@@ -39,6 +47,10 @@ export const FilterContextProvider = ({children}: IFilterContextProvider) => {
     search: {
       set: setSearchTerm,
       value: searchTerm || ''
+    },
+    filteredCountries: {
+      set: setCountries,
+      value: countries
     }
   }
 
@@ -60,6 +72,10 @@ export const FilterContext = (() => {
     search: {
       set: noop,
       value: ''
+    },
+    filteredCountries: {
+      set: noop,
+      value: undefined
     }
   }
 

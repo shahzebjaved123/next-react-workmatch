@@ -24,14 +24,24 @@
 // // config.routes.country(code) will give the correct path
 
 
-import {config} from '@config'
-import {A} from '@styleGuide'
-import {ICountry, ICountryOverview} from '../../sharedInterfaces/1-taks-interface'
+import { ICountryOverview } from '../../sharedInterfaces/1-taks-interface'
+import { useFilterContext } from 'src/context/FilterContext'
+import { CountryTile } from './CountryTile'
+import { SearchInput } from './SearchInput'
 
 interface ICountryList {
-  countriesList: ICountry[]
+  countriesList: ICountryOverview[]
 }
 
-export const CountryList = ({countriesList}: ICountryList) => (
-  <div>your solution goes here</div>
-)
+export const CountryList = ({countriesList}: ICountryList) => {
+
+  const { filteredCountries } = useFilterContext()
+
+  return <>
+    <SearchInput />
+
+    <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mt-10'>
+      { (filteredCountries.value || countriesList).map(country => <CountryTile key={country.code} country={country} />) } 
+    </div>
+  </>
+}

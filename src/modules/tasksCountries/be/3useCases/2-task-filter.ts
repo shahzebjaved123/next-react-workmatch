@@ -40,9 +40,14 @@ Task:
 */
 
 import {ICountry, ICountryOverview} from '../../sharedInterfaces/1-taks-interface'
-
+import FuzzySearch from 'fuzzy-search'; 
+import { countryAdapter } from '../2adopters/country-overview-adapter';
 
 export const filterCountries = (countries: ICountry[], searchTerm: string): ICountryOverview[] => {
-  // your solution goes here
-  return []
+  
+  var countryOverviews = countries.map(country => countryAdapter(country))
+  const searcher = new FuzzySearch(countryOverviews, ['code', 'name'])
+  const result = searcher.search(searchTerm)
+  
+  return result
 }
