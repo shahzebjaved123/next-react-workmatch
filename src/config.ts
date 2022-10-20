@@ -56,6 +56,7 @@ export const config = {
     toggle: '/toggle',
     countriesOverview: '/countries',
     country: (code) => `/countries/${code}`,
+    countriesDetailApi: (code) => `/api/countries/${code}`,
     countriesApiTest: '/api/countries',
   },
 

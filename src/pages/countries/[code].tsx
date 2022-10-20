@@ -6,6 +6,8 @@ import {slugAsStringUndefined} from '@utils'
 import {ICountry} from '../../modules/tasksCountries/sharedInterfaces/1-taks-interface'
 import {getStaticPathsForCountries} from '../../modules/tasksCountries/fe/1presentation/6-bonus-task-nextjs-ssr-ssg'
 import axios from 'axios'
+import { config } from '@config'
+import { getAllCountries, getCountry } from 'src/modules/tasksCountries/be/4dataAccess/getAllCountries'
 
 
 interface IPageProps {
@@ -35,11 +37,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({params, locale}) => {
   const code: string | undefined = slugAsStringUndefined(params?.code)
 
-  const countryResponse = await (await axios.get(`http://localhost:3000/api/countries/${code}`)).data
-
   return {
     props: {
-      country: countryResponse.data,
+      country: getCountry(code || ''),
       messages: require(`localize/${locale}.json`)
     }
   }
