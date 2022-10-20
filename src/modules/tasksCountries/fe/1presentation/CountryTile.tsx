@@ -1,5 +1,6 @@
 import { useRouter } from "next/router"
 import { ICountryOverview } from "../../sharedInterfaces/1-taks-interface"
+import { config } from "@config";
 
 interface ICountryTileProps {
     country: ICountryOverview
@@ -10,7 +11,8 @@ export const CountryTile = ({country}: ICountryTileProps) => {
     const router = useRouter()
   
     const handleClick = () => {
-        router.push(`/countries/${country.code}`)
+        console.log(config.routes.country(country.code))
+        router.push(location.origin + config.routes.country(country.code))
     }
   
     return (
